@@ -1,0 +1,110 @@
+2016-06-27 11:07:30 database: opening /home/netikras/FilerDB/filer.h2db.mv.db (build 192)
+2016-06-27 11:07:30 lock: 1 exclusive write lock requesting for SYS
+2016-06-27 11:07:30 lock: 1 exclusive write lock added for SYS
+2016-06-27 11:07:30 lock: 1 exclusive write lock unlock SYS
+2016-06-27 11:07:30 lock: 1 exclusive write lock requesting for SYS
+2016-06-27 11:07:30 lock: 1 exclusive write lock added for SYS
+2016-06-27 11:07:30 lock: 1 exclusive write lock unlock SYS
+2016-06-27 11:07:30 database: opened /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:07:30 database: connecting session #3 to /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:07:30 jdbc[3]: 
+/*SQL */SET TRACE_LEVEL_FILE 3;
+2016-06-27 11:19:49 jdbc[3]: 
+/*SQL t:2*/ROLLBACK;
+2016-06-27 11:19:49 database: disconnecting session #3
+2016-06-27 11:19:49 database: closing /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:19:49 database: closed
+2016-06-27 11:19:49 database: disconnected session #3
+2016-06-27 11:20:09 database: opening /home/netikras/FilerDB/filer.h2db.mv.db (build 192)
+2016-06-27 11:20:09 lock: 1 exclusive write lock requesting for SYS
+2016-06-27 11:20:09 lock: 1 exclusive write lock added for SYS
+2016-06-27 11:20:09 lock: 1 exclusive write lock unlock SYS
+2016-06-27 11:20:09 lock: 1 exclusive write lock requesting for SYS
+2016-06-27 11:20:09 lock: 1 exclusive write lock added for SYS
+2016-06-27 11:20:09 lock: 1 exclusive write lock unlock SYS
+2016-06-27 11:20:09 database: opened /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:20:09 database: connecting session #3 to /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:20:09 jdbc[3]: 
+/*SQL */SET TRACE_LEVEL_FILE 3;
+2016-06-27 11:20:09 database: connecting session #4 to /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:20:09 jdbc[4]: 
+/*SQL */SET TRACE_LEVEL_FILE 3;
+2016-06-27 11:21:53 jdbc[4]: 
+/*SQL */ROLLBACK;
+2016-06-27 11:21:53 database: disconnecting session #4
+2016-06-27 11:21:53 database: disconnected session #4
+2016-06-27 11:21:53 jdbc[3]: 
+/*SQL */ROLLBACK;
+2016-06-27 11:21:53 database: disconnecting session #3
+2016-06-27 11:21:53 database: closing /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:21:53 database: closed
+2016-06-27 11:21:53 database: disconnected session #3
+2016-06-27 11:22:08 database: opening /home/netikras/FilerDB/filer.h2db.mv.db (build 192)
+2016-06-27 11:22:08 lock: 1 exclusive write lock requesting for SYS
+2016-06-27 11:22:08 lock: 1 exclusive write lock added for SYS
+2016-06-27 11:22:08 lock: 1 exclusive write lock unlock SYS
+2016-06-27 11:22:08 lock: 1 exclusive write lock requesting for SYS
+2016-06-27 11:22:08 lock: 1 exclusive write lock added for SYS
+2016-06-27 11:22:08 lock: 1 exclusive write lock unlock SYS
+2016-06-27 11:22:08 database: opened /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:22:08 database: connecting session #3 to /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:22:08 jdbc[3]: 
+/*SQL */SET TRACE_LEVEL_FILE 3;
+2016-06-27 11:22:08 database: connecting session #4 to /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:22:08 jdbc[4]: 
+/*SQL */SET TRACE_LEVEL_FILE 3;
+2016-06-27 11:22:27 database: closing /home/netikras/FilerDB/filer.h2db.mv.db from shutdown hook
+2016-06-27 11:22:27 database: disconnecting session #3
+2016-06-27 11:22:27 database: disconnected session #3
+2016-06-27 11:22:27 database: disconnecting session #4
+2016-06-27 11:22:27 database: disconnected session #4
+2016-06-27 11:22:27 database: closing /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:22:27 database: closed
+2016-06-27 11:22:48 database: opening /home/netikras/FilerDB/filer.h2db.mv.db (build 192)
+2016-06-27 11:22:48 lock: 1 exclusive write lock requesting for SYS
+2016-06-27 11:22:48 lock: 1 exclusive write lock added for SYS
+2016-06-27 11:22:48 lock: 1 exclusive write lock unlock SYS
+2016-06-27 11:22:48 lock: 1 exclusive write lock requesting for SYS
+2016-06-27 11:22:48 lock: 1 exclusive write lock added for SYS
+2016-06-27 11:22:48 lock: 1 exclusive write lock unlock SYS
+2016-06-27 11:22:48 database: opened /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:22:48 database: connecting session #3 to /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:22:48 jdbc[3]: 
+/*SQL */SET TRACE_LEVEL_FILE 3;
+2016-06-27 11:22:48 database: connecting session #4 to /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:22:48 jdbc[4]: 
+/*SQL */SET TRACE_LEVEL_FILE 3;
+2016-06-27 11:25:56 jdbc[3]: 
+/*SQL */ROLLBACK;
+2016-06-27 11:25:56 database: disconnecting session #3
+2016-06-27 11:25:56 database: disconnected session #3
+2016-06-27 11:25:56 jdbc[4]: 
+/*SQL */ROLLBACK;
+2016-06-27 11:25:56 database: disconnecting session #4
+2016-06-27 11:25:56 database: closing /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:25:56 database: closed
+2016-06-27 11:25:56 database: disconnected session #4
+2016-06-27 11:26:13 database: opening /home/netikras/FilerDB/filer.h2db.mv.db (build 192)
+2016-06-27 11:26:13 lock: 1 exclusive write lock requesting for SYS
+2016-06-27 11:26:13 lock: 1 exclusive write lock added for SYS
+2016-06-27 11:26:13 lock: 1 exclusive write lock unlock SYS
+2016-06-27 11:26:13 lock: 1 exclusive write lock requesting for SYS
+2016-06-27 11:26:13 lock: 1 exclusive write lock added for SYS
+2016-06-27 11:26:13 lock: 1 exclusive write lock unlock SYS
+2016-06-27 11:26:13 database: opened /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:26:13 database: connecting session #3 to /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:26:13 jdbc[3]: 
+/*SQL */SET TRACE_LEVEL_FILE 3;
+2016-06-27 11:26:13 database: connecting session #4 to /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:26:13 jdbc[4]: 
+/*SQL */SET TRACE_LEVEL_SYSTEM_OUT 3;
+2016-06-27 11:27:21 jdbc[3]: 
+/*SQL */ROLLBACK;
+2016-06-27 11:27:21 database: disconnecting session #3
+2016-06-27 11:27:21 database: disconnected session #3
+2016-06-27 11:27:21 jdbc[4]: 
+/*SQL */ROLLBACK;
+2016-06-27 11:27:21 database: disconnecting session #4
+2016-06-27 11:27:21 database: closing /home/netikras/FilerDB/filer.h2db.mv.db
+2016-06-27 11:27:21 database: closed
+2016-06-27 11:27:21 database: disconnected session #4

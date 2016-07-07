@@ -1,0 +1,15 @@
+.contextmenu-node{
+    position: absolute;
+    background-color: white;
+    border: solid #CCCCCC 1px;
+}
+
+.contextmenu-item{
+    margin: 0.5em;
+    padding-left: 0.5em;
+}
+
+.contextmenu-item:hover{
+    background-color: #CCCCCC;
+    cursor: default;
+}

@@ -1,0 +1,18 @@
+apply plugin: 'eclipse'
+apply plugin: 'jetty'
+
+
+repositories{
+	mavenLocal()
+	mavenCentral()
+}
+
+
+
+jettyRun{
+    // http://stackoverflow.com/questions/11032342/gradle-jetty-plugin-locking-files
+    // http://www.eclipse.org/jetty/documentation/current/troubleshooting-locked-files-on-windows.html
+    webDefaultXml = file("${project.webAppDir}/WEB-INF/jetty-webdefault.xml")
+	httpPort = 15481
+	contextPath = ""
+}

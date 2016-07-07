@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping package="com.filer.objects.dao">
+   <class name="User" table="T_users">
+      <meta attribute="class-description">
+         Informacija apie vartotoja
+      </meta>
+      <id       name="username"         column="name"  type="string"/>
+      <property name="password_hash"    column="pswd"  type="string"/>
+      <property name="email"            column="email" type="string"/>
+      <!-- <set name="groups" table="T_groups" cascade="all">
+        <key><column name="username" not-null="true"></column></key>
+        
+        <many-to-many column="username"/>
+      </set> -->
+      <!-- <join table="T_groups">
+        <key column="username"/>
+        <property name="groups" column="name"/>
+      </join> -->
+   </class>
+</hibernate-mapping>

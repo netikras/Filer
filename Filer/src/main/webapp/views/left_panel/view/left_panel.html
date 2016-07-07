@@ -1,0 +1,190 @@
+<div>
+    
+    <script type="text/javascript" src="../controller/ctrl-leftPane.js"></script>
+    
+    
+    <!-- <div class="container btn-group-vertical"> -->
+    <div class="container panel-group row" id="leftpanel-group">
+	    
+	    <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="btn btn-block btn-info"  data-toggle="collapse" data-parent="#leftpanel-group" href="#user-block">
+                    <span class="glyphicon glyphicon-user"></span> {{isLoggedIn() ? user.name : "User" }} <span class="caret"></span>
+                </div>
+            </div>
+            <div id="user-block" class="panel-collapse collapse" ng-class="{in: ! isLoggedIn()}">
+                <div class="panel-body">
+                    <div ng-hide='isLoggedIn()'>
+                        <form name="loginForm" role="form" ng-submit="login(username, password)" required>
+						    <div class="form-group">
+						      <label for="username">Username:</label>
+						      <input type="text" class="form-control" ng-model="username" name="username" id="username" placeholder="Enter username" required="true">
+						    </div>
+						    <div class="form-group">
+						      <label for="password">Password:</label>
+						      <input type="password" class="form-control" ng-model="password" name="password" id="password" placeholder="Enter password" required="true">
+						    </div>
+						    <div class="checkbox">
+						      <label><input type="checkbox"> Remember me</label>
+						    </div>
+						    <button type="submit" class="btn btn-default">Login</button>
+						  </form>
+                    </div>
+                    <div ng-show='isLoggedIn()' >
+                        <button type="button" class="btn btn-default btn-block" ng-click="toggleSettingsWindow()" data-toggle="modal" data-target="#settingsWindow" data-backdrop="static" data-keyboard="false"><span class="glyphicon glyphicon-info-sign"></span> <span class="hidden-xs hidden-sm">Info</span></button>
+                        <button ng-if="user.isAdmin" type="button" class="btn btn-default btn-block" ng-click="" data-toggle="modal" data-target="#adminWindow" data-backdrop="static" data-keyboard="false"><span class="glyphicon glyphicon-wrench"></span> <span class="hidden-xs hidden-sm">Admin</span></button>
+                        
+                        <!-- <button type="button" class="btn btn-default btn-block" ng-click=""><span class="glyphicon glyphicon-wrench"></span> <span class="hidden-xs hidden-sm">Admin</span></button> -->
+                        <button class="btn btn-danger btn-block" ng-click="logout()"><span class="glyphicon glyphicon-off"></span> <span class="hidden-xs hidden-sm">Logout</span></button>
+                        
+                        
+                    </div>
+                   <!-- <button ng-repeat="(alias, url) in favs" type="button" title="{{url}}" class="btn btn-default btn-block" ng-click="showFav(url)">{{user.name}}</button> -->
+               </div>
+            </div>
+        </div>
+        
+	    
+        <div class="panel panel-default" ng-show='isLoggedIn()'>
+            <div class="panel-heading">
+			    <div class="btn btn-block btn-info"  data-toggle="collapse" data-parent="#leftpanel-group" href="#bookmarks-block">
+			        <span class="glyphicon glyphicon-star-empty"></span> <span class="hidden-sm hidden-xs">Bookmarks</span> <span class="caret"></span>
+			    </div>
+		    </div>
+		    <div id="bookmarks-block" class="panel-collapse collapse">
+	            <div class="panel-body list-group">
+	                <div ng-repeat="bookmark in user.bookmarks" class="list-group-item "><a href="#" title="{{bookmark.path}}" ng-click="showFav(bookmark.path)">{{bookmark.alias}} </a><a class="pull-right glyphicon glyphicon-remove" href="#" title="remove {{bookmark.alias}}" ng-click="delBookmark(bookmark.alias)"></a></div>
+	           </div>
+            </div>
+	    </div>
+	    
+	    
+	    
+	    
+		<div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="btn btn-block btn-info"  data-toggle="collapse" data-parent="#leftpanel-group" href="#notifications-block">
+                    <span class="glyphicon glyphicon-bell"></span> <span class="hidden-sm hidden-xs">Notifications</span> ({{notifications.length}}) <span class="caret"></span>
+                </div>
+            </div>
+            <div id="notifications-block" class="panel-collapse collapse">
+                <div class="panel-body">
+                   <div ng-repeat="notification in notifications" title="{{notification.text}}" class="panel panel-{{notification.type}}" ng-class="panel-{{notification.type}}">
+                        <div class="panel-heading"><a class="glyphicon glyphicon-remove" ng-click="removeNotification(notification.id)"></a> {{notification.time}}<br>{{notification.title}}</div>
+                        <div class="panel-body">{{notification.text}}</div>
+                   </div>
+               </div>
+            </div>
+        </div>
+        
+        <div class="overlay overlay-top-to-bottom" ng-class="{'overlay-visible': hasSessionExpired()}">
+            <div class="overlay-content">
+                <h3>Your session has expired</h3>
+                
+                <div>Please log in</div>
+                <hr>
+                <div class="row">
+                        <form class="col-sm-offset-4 col-sm-4" name="loginForm" role="form" ng-submit="login(username, password)" required>
+                            <div class="form-group">
+                              <label for="username">Username:</label>
+                              <input type="text" class="form-control" ng-model="username" name="username" id="username" placeholder="Enter username" required="true">
+                            </div>
+                            <div class="form-group">
+                              <label for="password">Password:</label>
+                              <input type="password" class="form-control" ng-model="password" name="password" id="password" placeholder="Enter password" required="true">
+                            </div>
+                            <!-- <div class="checkbox form-group">
+                              <label><input class="" type="checkbox"> Remember me</label>
+                            </div> -->
+                            <button class="pull-right btn btn-primary" type="submit" >Login</button>
+                          </form>
+                    </div>
+            </div>
+            
+            
+            
+        </div>
+   	    
+   	    
+   	    
+   	    <div class="modal fade" id="settingsWindow" role="dialog">
+            <div class="modal-dialog modal-md">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title"><b>{{user.name}}</b> settings</h4>
+                </div>
+                <div class="modal-body">
+                  <table class="table table-hover">
+                      <tr><td>Username</td><td>{{user.name}}</td></tr>
+                      <tr><td>Email</td><td>{{user.email}}</td></tr>
+                      <tr><td>Groups</td><td>{{user.groups}}</td></tr>
+                      <tr><td>Token</td><td style="word-wrap: break-word; word-break:break-word">{{sessionData.token}}</td></tr>
+                      <tr><td>Session timeout</td><td>{{getTimeout()}}</td></tr>
+                      <tr><td>Session opened</td><td>{{sessionOpenTime()}}</td></tr>
+                      <tr><td>Session expires</td><td>{{sessionExpireTime()}} ({{getRemainingTime()}})</td></tr>
+                  </table>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" ng-click="settingsNonEditable = (settingsNonEditable==''?'disabled':'')">Edit</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="toggleSettingsWindow()">Close</button>
+                </div>
+              </div>
+              
+            </div>
+         </div>
+         
+         
+         
+         <div class="modal fade" id="adminWindow" role="dialog">
+            <div class="modal-dialog modal-md">
+            
+            <!-- Modal content-->
+            <div class="modal-content">
+               <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title"><b>Administration panel</b></h4>
+               </div>
+               <div class="modal-body">
+                   
+                   <div class="input-group" role="group">
+                       <input type="text" class="form-control" ng-model="admin_username_query" placeholder="Username..." uib-typeahead="uname for uname in searchUserName($viewValue)" typeahead-loading="loadingUsernames" typeahead-no-results="noResults" typeahead-wait-ms="300">
+                       <span class="input-group-btn">
+                           <button type="button" class="btn btn-default form-control" ng-click="admin_searchUser(admin_username_query)">Search</button>
+                       </span>
+                       <i ng-show="loadingUsernames" class="glyphicon glyphicon-refresh"></i>
+                       <div ng-show="noResults"><i class="glyphicon glyphicon-remove"></i> No Results Found</div>
+                   </div>
+                   
+                   <div class="list-grup">
+                       <a ng-repeat="user in admin_users_matched" href="#" class="list-group-item" ng-click="admin_selectUser(user)"> {{user}}</a>
+                   </div>
+                   
+                   <div ng-if="admin_username">
+	                  <table class="table table-hover">
+	                      <tr><td>Username</td><td>{{user.name}}</td></tr>
+	                      <tr><td>Email</td><td>{{user.email}}</td></tr>
+	                      <tr><td>Groups</td><td>{{user.groups}}</td></tr>
+	                      <tr><td>Token</td><td style="word-wrap: break-word; word-break:break-word">{{sessionData.token}}</td></tr>
+	                      <tr><td>Session timeout</td><td>{{getTimeout()}}</td></tr>
+	                      <tr><td>Session opened</td><td>{{sessionOpenTime()}}</td></tr>
+	                      <tr><td>Session expires</td><td>{{sessionExpireTime()}} ({{getRemainingTime()}})</td></tr>
+	                  </table>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" ng-click="settingsNonEditable = (settingsNonEditable==''?'disabled':'')">Edit</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="toggleSettingsWindow()">Close</button>
+                </div>
+              </div>
+              
+            </div>
+         </div>
+   	    
+   	    
+   	    
+    </div>
+    
+</div>

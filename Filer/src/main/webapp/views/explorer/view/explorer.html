@@ -1,0 +1,259 @@
+<div class="container well">
+
+
+
+
+    <div id="toolbar" class="container row btn-group">
+        
+        
+        <label class="col-xs-2 col-md-1 btn btn-default btn-file">
+            <img alt="Upload"   ng-src="views/explorer/items/icons/toolbar/upload.png"      title="Upload new item"   width="{{toolbar_img_width}}" height="{{toolbar_img_height}}" />
+        <span file-input='filesToUpload' on-change="upload(filesToUpload)" hidden multiple></span>
+        </label>
+        
+        <button type="button" class="btn btn-default col-xs-2 col-md-1"><img alt="Up"       ng-src="views/explorer/items/icons/toolbar/up.png"          title="Go up"             width="{{toolbar_img_width}}" height="{{toolbar_img_height}}" ng-click="goUp()"/></button>
+        <!-- <button type="button" class="btn btn-default col-xs-2 col-md-1"><img alt="Upload"   ng-src="views/explorer/items/icons/toolbar/upload.png"      title="Upload new items"   width="{{toolbar_img_width}}" height="{{toolbar_img_height}}" ng-click="upload()"/></button> -->
+        
+        
+
+        <div class=" btn-group" id="ddn_show_hide_hidden">
+            <button type="button" class="dropdown-toggle btn btn-default " data-toggle="dropdown">
+	            <img alt="Hidden"   ng-src="views/explorer/items/icons/toolbar/hide-hidden.png" title="Show/hide hidden"  width="{{toolbar_img_width}}" height="{{toolbar_img_height}}"/>
+	            <span class="caret"></span>
+	        </button>
+            <ul class="dropdown-menu">
+                <li><a ng-click="show_hidden = true" >Show hidden</a></li>
+                <li><a ng-click="show_hidden = false">Hide hidden</a></li>
+                
+            </ul>
+        </div>
+        
+        <div class=" btn-group " id="ddn_sort_by">
+	        <button type="button" class="btn btn-default btn-group dropdown-toggle" data-toggle="dropdown">
+	            <img alt="Sort"   ng-src="views/explorer/items/icons/toolbar/sort.png" title="Sort results"  width="{{toolbar_img_width}}" height="{{toolbar_img_height}}"/>
+	            <span class="caret"></span>
+	        </button>
+	            <ul class="dropdown-menu">
+	                <li><a ng-click="sort_ascending = !sort_ascending; sortByProperty(sort_property)" >Order: {{sort_ascending?"Ascending":"Descending"}}</a></li>
+	                <li role="separator" class="divider"></li>
+	                <li ng-repeat="(key, value) in explorerViewSuggested.files[0]"><a ng-click="sortByProperty(key)">{{key}}</a></li>
+	                
+	            </ul>
+        </div>
+        
+        
+        <div class="btn-group" id="ddn_selected_files">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-disabled="selectedFiles.length == 0">
+                <img height="{{toolbar_img_height}}"/>
+                <span class="glyphicon glyphicon-check"></span> 
+                <span class="hidden-sm hidden-xs">Selected Files </span> 
+                <span class="badge">{{selectedFiles.length}} </span> 
+                <span class="caret"></span>
+            </button>
+        
+            <ul class="dropdown-menu">
+                <li><a href="#" ng-click="unselectAllFiles()">Unselect All</a></li>
+                <li class="divider"/>
+                <li ng-repeat="sFile in selectedFiles">
+                    <div>
+                        <a title="{{sFile.absolutePath}}" >{{sFile.name}} </a>
+                        <a class="pull-right glyphicon glyphicon-remove" href="#" title="remove {{sFile.name}}" ng-click="unselectFile(sFile)"></a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- <a href="#" data-toggle="modal" data-target="#compressionDialogWindow" data-backdrop="static" data-keyboard="false"><span class="glyphicon glyphicon-compressed"></span> Archive</a> -->
+        <div class=" btn-group" id="ddn_archive_selected">
+            <button type="button" class="btn btn-default" data-toggle="modal" data-target="#compressionDialogWindow" data-backdrop="static" data-keyboard="false" ng-click="setTargetItems(selectedFiles)" ng-disabled="selectedFiles.length == 0">
+            <!-- <button type="button" class="dropdown-toggle btn btn-default " data-toggle="dropdown" ng-click="setTargetItems(selectedFiles)" ng-disabled="selectedFiles.length == 0"> -->
+                <img alt="Archive"   ng-src="views/explorer/items/icons/toolbar/archive.png" title="Archive selected"  width="{{toolbar_img_width}}" height="{{toolbar_img_height}}"/>
+                <!-- <span class="caret"></span> -->
+            </button>
+<!--             <ul class="dropdown-menu">
+                <li><a ng-click="" >tar</a></li>
+                <li ng-if="selectedFiles.length == 1"><a ng-click="">gz</a></li>
+                <li><a ng-click="">tgz</a></li>
+                <li><a ng-click="">zip</a></li>
+                
+            </ul> -->
+        </div>
+        
+        <button type="button" class="btn btn-default col-xs-2 col-md-1" ng-disabled="selectedFiles.length == 0" ><img alt="Download selected" ng-src="views/explorer/items/icons/toolbar/download.png"    title="Download selected" width="{{toolbar_img_width}}" height="{{toolbar_img_height}}" ng-click="setTargetItems(selectedFiles); download()"/></button>
+        <button type="button" class="btn btn-default col-xs-2 col-md-1" ng-disabled="selectedFiles.length == 0" ><img alt="Delete selected"   ng-src="views/explorer/items/icons/toolbar/delete.png"      title="Delete selected"   width="{{toolbar_img_width}}" height="{{toolbar_img_height}}" ng-click="setTargetItems(selectedFiles); delete()"/></button>
+        
+        
+    </div>
+    <br>
+    <br>
+    
+    
+    
+    
+    <div id="addressbar" class="container row">
+        <!-- <form ng-submit="submitPath()"> -->
+        <form>
+        <div class="input-group">
+            <div class="input-group-btn">
+                <button type="button" class="btn btn-default disabled" >path://</button>
+            </div>
+            <input type="text" ng-model="currentFile.addrBar" class="form-control"  />
+            <div class="input-group-btn">
+                <button type="submit" class="btn btn-default" ng-click="submitPath()" >Go!</button>
+            </div>
+        </div>
+        </form>
+    </div>
+    <br>
+    
+    
+    
+    
+    
+    
+    <div id="explorer_window" class="container row panel panel-primary">
+        
+        <div ng-repeat="file in explorerViewSuggested.files | showHidden:show_hidden" class="col-sm-2 col-xs-5 btn-group" role="group" >
+        
+            <!-- <a type="button" class="btn btn-primary-outline" ng-dblclick="openFile(file.cwd, file.name)" ng-right-click="context(file.name)"> -->
+            <a type="button" class="btn btn-primary-outline" ng-dblclick="openFile(file.parent, file.name)" ng-right-click="context(file.name)" data-toggle="tooltip" data-placement="bottom" title="{{file.name}}">
+                <img alt="file.type" ng-src="views/explorer/items/icons/filetypes/{{file.type}}.png" height="{{img_height}}" width="{{img_width}}" />
+                
+            </a>
+            <!-- <a type="button" class="btn-group dropdown-toggle" data-toggle="dropdown" ng-click="setSelectedFile(file)"  ><span class="caret"></span></a> -->
+            <a type="button" class="btn-group dropdown-toggle" data-toggle="dropdown" ng-click="setTargetItems([file])"  ><span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="#" ng-click="selectFile(file)">Select</a></li>
+                <li ng-if="file.type == 'directory'"><a ng-click="addToFavorites(file.name, file.absolutePath)"><span class="glyphicon glyphicon-star"></span> Add to favorites</a></li>
+                <li ng-if="file.type != 'directory'"><a ng-click="" target="_self" download="{{file.name}}" href="{{getDownloadUrl(file)}}"><span class="glyphicon glyphicon-circle-arrow-down"></span> Download</a></li>
+                <!-- <button type="button" class="btn btn-default btn-block" ng-click="toggleSettingsWindow()" data-toggle="modal" data-target="#settingsWindow" data-backdrop="static" data-keyboard="false"><span class="glyphicon glyphicon-cog"></span> <span class="hidden-xs hidden-sm">Settings</span></button> -->
+                <li ><a class="glyphicon glyphicon-info-sign" href="" data-toggle="modal" data-target="#fileInfoWindow" id="fileInfoWindowTrigger" ng-click="showFileInfo(file)"> Info</a></li>
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#compressionDialogWindow" data-backdrop="static" data-keyboard="false"><span class="glyphicon glyphicon-compressed"></span> Archive</a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li ng-repeat="action in file.actions"><a ng-click="performAction(file, action)">{{action}}</a></li>
+            </ul>
+            <span data-toggle="tooltip" data-placement="bottom" title="{{file.name}}">{{file.name | limitTo:10}}</span>
+            <!-- <span>{{file.name}}</span> -->
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="modal fade" id="compressionDialogWindow" role="dialog">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Compression panel</h4>
+                </div>
+                <div class="modal-body  row">
+                    <div ng-if="getTargetItems().length > 0" class="form-group ">
+                        <label for="compressionFormats" class="col-sm-2 control-label"></label>
+                        <div class="col-xs-12">
+                           
+                           <div class=" row">
+		                        <div class="col-xs-9 col-sm-9 ">
+			                        <select id="compressionMode" class="form-control" ng-model="compressionMode">
+			                            <option value="individually">Compress files individually</option>
+			                            <option value="single_arch">Compress files to a single archive</option>
+			                        </select>
+		                        </div>
+		                        
+		                        <div ng-if="compressionMode != 'single_arch'" class="col-xs-3 col-sm-3">
+			                        <select id="compressionFormats" class="form-control">
+		                                    <option value="tar">tar</option>
+		                                    <option value="tgz">tgz</option>
+		                                    <option ng-if="getTargetItems().length == 1 && getTargetItems()[0].type != 'directory'" value="gz">gz</option>
+		                                    <option value="zip">zip</option>
+		                            </select>
+	                            </div>
+                            </div>
+                            
+                            
+	                        <div ng-if="compressionMode == 'single_arch'" class="input-group col-xs-12">
+		                            <br>
+	                            <div class=" row">
+	                                <span class="col-xs-12 col-sm-5"><input type="text" class="form-control" placeholder="Output file address" value="{{currentFile.addrBar}}"></span>
+	                                <span class="col-xs-8  col-sm-4"><input type="text" class="form-control" placeholder="file name"></span>
+		                            <span class="col-xs-4  col-sm-3"><select id="compressionFormats" class="form-control">
+		                                    <option value="tar">tar</option>
+		                                    <option value="tgz">tgz</option>
+		                                    <option ng-if="getTargetItems().length == 1 && getTargetItems()[0].type != 'directory'" value="gz">gz</option>
+		                                    <option value="zip">zip</option>
+                                    </select></span>
+		                        
+		                        </div>
+	                        </div>
+	                        
+	                        <hr>
+	                        
+	                        <div style="overflow: scroll; height:200px" class="row " >
+	                           <div class="col-xs-12">
+		                            <ul class="list-group ">
+		                                <li class="list-group-item active disabled">Selected files</li>
+		                                <li ng-repeat="targetItem in getTargetItems()" class="list-group-item"><span ng-class="targetItem.type == 'directory' ? 'glyphicon glyphicon-folder-open' : 'glyphicon glyphicon-file'"></span>  {{targetItem.absolutePath}}</li>
+		                                <!-- <li class="list-group-item">{{selectedFile.absolutePath}}</li> -->
+		                            </ul>
+	                            </div>
+	                        </div>
+	                        <br>
+	                        <hr>
+                            
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" ng-click="">Proceed</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="toggleSettingsWindow()">Discard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    <a href="" data-toggle="modal" data-target="#fileInfoWindow" id="fileInfoWindowTrigger"></a>
+    <div class="modal fade" id="fileInfoWindow" role="dialog">
+	    <div class="modal-dialog modal-md">
+	    
+	      <!-- Modal content-->
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <button type="button" class="close" data-dismiss="modal">&times;</button>
+	          <h4 class="modal-title"><b>{{targetFile.name}}</b> info</h4>
+	        </div>
+	        <div class="modal-body">
+	          <table class="table table-hover">
+	              <tr><td>File Type</td><td>{{targetFile.directory ? "directory" : "file"}}</td></tr>
+	              <tr><td style="word-wrap: break-word; word-break:break-word">File Parent</td><td>{{targetFile.parent}}</td></tr>
+	              <tr><td style="word-wrap: break-word; word-break:break-word">File Name</td><td>{{targetFile.name}}</td></tr>
+	              <tr><td>Owner User</td><td>{{targetFile.uid}}</td></tr>
+	              <tr><td>Owner Group</td><td>{{targetFile.gid}}</td></tr>
+	              <tr><td>File mode</td><td>{{targetFile.mode}} ({{targetFile.directory ? "d" : "-"}}{{getPermissionsString(targetFile.mode)}})</td></tr>
+	              <tr><td>File Size</td><td>{{bytesToString(targetFile.size)}} ({{targetFile.size}} B)</td></tr>
+	              <!-- <tr><td>Token</td><td style="word-wrap: break-word; word-break:break-word">{{sessionData.token}}</td></tr> -->
+	              <tr><td>Modification date</td><td>{{timestampToString(targetFile.dMod)}}</td></tr>
+	              <tr><td>Change date</td><td>{{timestampToString(targetFile.dChg)}}</td></tr>
+	              <tr><td>Access date</td><td>{{timestampToString(targetFile.dAcc)}}</td></tr>
+	          </table>
+	        </div>
+	        <div class="modal-footer">
+	          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        </div>
+	      </div>
+	      
+	    </div>
+    </div>
+    
+    
+    
+    
+</div>

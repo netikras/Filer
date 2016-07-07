@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping package="com.filer.objects.dao">
+   <class name="Fav" table="T_favs">
+      <meta attribute="class-description">Informacija apie zymes</meta>
+      
+      
+      <composite-id>
+        <key-property name="username" column="username" type="string"></key-property>
+        <key-property name="alias"    column="alias"    type="string"></key-property>
+        <key-property name="path"     column="path"     type="string"></key-property>
+      </composite-id>
+    
+   </class>
+</hibernate-mapping>
